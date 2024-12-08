@@ -1,9 +1,12 @@
+import { type ReactionType } from '../reaction';
+
 export interface FeedItemType extends FeedBaseType {
   remark?: string;
   nickname: string;
   profileImage?: string;
   memberId: number;
   recordStartedAt: string;
+  reactions: ReactionType[];
 }
 
 export interface FeedBaseType {

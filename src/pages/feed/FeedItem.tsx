@@ -21,6 +21,7 @@ function FeedItem({
   duration,
   recordStartedAt,
   recordId,
+  reactions,
 }: FeedItemType) {
   const { memberId: myId } = useGetMyId();
   const isMyFeed = memberId === myId;
@@ -57,7 +58,7 @@ function FeedItem({
           </p>
         </div>
       </Link>
-      <ReactionBar memberId={memberId} recordId={recordId} />
+      <ReactionBar memberId={memberId} recordId={recordId} reactions={reactions} />
     </li>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useGetMembersMe } from '@/apis/member';
-import { type GetReactionsResponse, useAddReaction, useGetReactions, useModifyReaction } from '@/apis/reaction';
+import { type GetReactionsResponse, type ReactionType, useAddReaction, useModifyReaction } from '@/apis/reaction';
 import { type EmojiType, REACTION_EMOJI_IMAGE, REACTION_EMOJI_LIST } from '@/apis/schema/reaction';
 import { GradientFeedIcon } from '@/components/Icon/NavigationFeedIcon';
 import MotionDiv from '@/components/Motion/MotionDiv';
@@ -19,12 +19,14 @@ import { AnimatePresence, motion } from 'framer-motion';
 type SelectEmojiType = EmojiType | null;
 
 interface Props {
+  reactions: ReactionType[];
   recordId: number;
 }
 
 function OtherReactionBar(props: Props) {
   const { triggerSnackBar } = useSnackBar();
-  const { data, refetch, isLoading } = useGetReactions(props.recordId);
+  // const { data, refetch, isLoading } = useGetReactions(props.recordId);
+  const { reactions: data, recordId } = props;
   const [selectEmoji, setSelectEmoji] = useState<SelectEmojiType>();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -48,9 +50,10 @@ function OtherReactionBar(props: Props) {
     setIsReactionBottomSheetShowing(true);
   };
 
-  const { mutate } = useAddReaction({
+  const { mutate: addMutate } = useAddReaction({
     onSuccess: () => {
-      refetch();
+      return addMutate;
+      // success
     },
     onError: () => {
       setSelectEmoji(myEmoji);
@@ -59,7 +62,8 @@ function OtherReactionBar(props: Props) {
 
   const { mutate: modifyMutate } = useModifyReaction({
     onSuccess: () => {
-      refetch();
+      // modify
+      return modifyMutate;
     },
     onError: () => {
       setSelectEmoji(myEmoji);
@@ -75,7 +79,7 @@ function OtherReactionBar(props: Props) {
       modifyMutate({ reactionId: myReactionId, emojiType: emoji });
     } else {
       eventLogger.logEvent(EVENT_LOG_CATEGORY.REACTION, EVENT_LOG_NAME.REACTION.CLICK_EMOJI);
-      mutate({ missionRecordId: props.recordId, emojiType: emoji });
+      addMutate({ missionRecordId: recordId, emojiType: emoji });
     }
   };
 
@@ -83,7 +87,7 @@ function OtherReactionBar(props: Props) {
 
   useEffect(() => {
     setSelectEmoji(myEmoji);
-  }, [isLoading]);
+  }, [myEmoji]);
 
   return (
     <div className={reactionBarContainerCss} ref={ref}>
@@ -103,7 +107,7 @@ function OtherReactionBar(props: Props) {
         data={data}
         onClose={() => setIsReactionBottomSheetShowing(false)}
         onDeleteReaction={() => {
-          refetch();
+          // delete
           setIsReactionBottomSheetShowing(false);
         }}
       />

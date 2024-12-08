@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useGetReactions } from '@/apis/reaction';
+import { type ReactionType } from '@/apis/reaction';
 import Icon from '@/components/Icon';
 import { reactionBarContainerCss, titleSectionCss } from '@/components/ReactionBar/ReactionBar.style';
 import ReactionBottomSheet from '@/components/ReactionBar/ReactionBottomSheet';
@@ -10,13 +10,13 @@ import { css } from '@/styled-system/css';
 import { eventLogger } from '@/utils';
 
 interface Props {
-  recordId: number;
+  reactions: ReactionType[];
 }
 
 function MyReactionBar(props: Props) {
   const { triggerSnackBar } = useSnackBar();
 
-  const { data } = useGetReactions(props.recordId);
+  const { reactions: data } = props;
   const [isReactionBottomSheetShowing, setIsReactionBottomSheetShowing] = useState(false);
 
   const onOpenReactionBottomSheet = () => {
