@@ -17,6 +17,11 @@ const nextConfig = {
         hostname: 'image.10mm.today',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'image.10mm.site',
+        port: '',
+      },
     ],
   },
 };

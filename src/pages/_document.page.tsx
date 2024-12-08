@@ -7,13 +7,13 @@ export const metadata = {
   keywords: '10mm, 10분만, 10분, 10MM, 10mm, 하루 10분, 10분 단위, 생환습관',
   openGraph: {
     type: 'website',
-    url: 'https://www.10mm.today',
+    url: 'https://www.10mm.site',
     title: '10MM',
     description: '당신의 인생을 바꿀 10분',
     siteName: '10MM',
     images: [
       {
-        url: 'https://www.10mm.today/og-image.png',
+        url: 'https://www.10mm.site/og-image.png',
       },
     ],
   },

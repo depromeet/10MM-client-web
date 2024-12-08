@@ -7,8 +7,8 @@ interface Props {
   keywords?: string;
 }
 
-const BASE_URL = 'https://10mm.today';
-const DEFAULT_OG_IMAGE = 'https://www.10mm.today/og-image.png';
+const BASE_URL = 'https://10mm.site';
+const DEFAULT_OG_IMAGE = 'https://www.10mm.site/og-image.png';
 
 /**
  * @description next/head를 사용하는 SEO 컴포넌트입니다. title, og, twitter 등 SEO에 필요한 태그를 렌더링 합니다.
